@@ -1,0 +1,33 @@
+{
+  "name": "bat_judge",
+  "version": "1.0.0",
+  "description": "a website for bat debugging",
+  "main": "index.html",
+  "scripts": {
+    "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ivan-Zhong/bat_judge.git"
+  },
+  "keywords": [
+    "bat",
+    "judge"
+  ],
+  "author": "ZhongYifan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ivan-Zhong/bat_judge/issues"
+  },
+  "homepage": "https://github.com/Ivan-Zhong/bat_judge#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "bootstrap-social": "^5.1.1",
+    "font-awesome": "^4.7.0"
+  }
+}
