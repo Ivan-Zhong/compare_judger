@@ -23,7 +23,7 @@
       href="node_modules/bootstrap-social/bootstrap-social.css"
     />
     <link rel="stylesheet" href="css/styles.css" />
-    <title>Tongji Online BAT Debugger</title>
+    <title>Compare Judger</title>
   </head>
   <body>
     <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
@@ -41,13 +41,13 @@
         ></a>
         <div class="collapse navbar-collapse" id="Navbar">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html"
                 ><span class="fa fa-home fa-lg"></span> Home</a
               >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./problems.html"
+            <li class="nav-item active">
+              <a class="nav-link" href="#"
                 ><span class="fa fa-list fa-lg"></span> Problems</a
               >
             </li>
@@ -65,14 +65,15 @@
         </div>
       </div>
     </nav>
-    <header class="jumbotron">
+
+    <header class="jumbotron" id="jumb">
       <div class="container">
         <div class="row row-header">
           <div class="col-12 col-sm-8">
-            <h1>Tongji Online BAT Debugger</h1>
+            <h1>Tongji Online Compare Judger</h1>
             <p>
-              This is the best online bat debugger in the world! Nobody
-              understands bat debugging better than Group 15 team members!
+              This is the best online compare judger in the world! Nobody
+              understands compare judging better than Group 15 team members!
             </p>
             <p>
               Upload your program files to our website to see what data are
@@ -86,9 +87,138 @@
       </div>
     </header>
 
+    <div class="container" id="main_container">
+      <div id="problem_list">
+        <div class="row row-content">
+          <div class="col-12 col-sm-1"></div>
+          <div class="col-12 col-sm-10">
+            <h2 class="text-center m-3">Published problems</h2>
+            <div class="row m-3">
+              <form class="form-inline col-6">
+                <input
+                  class="form-control mr-sm-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <button
+                  class="btn btn-outline-success my-2 my-sm-0"
+                  type="submit"
+                >
+                  <i class="fa fa-search"></i>
+                </button>
+              </form>
+              <div class="col-6">
+                <a href="./create_new_problems.html">
+                  <button type="button" class="float-right btn btn-success">
+                    <i class="fa fa-plus"></i> Create new problems
+                  </button>
+                </a>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>编号</th>
+                    <th>题目</th>
+                    <th>标签</th>
+                    <th>创建者编号</th>
+                    <th>票数</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-1"></div>
+      </div>
+
+      <div id="judgement_area">
+        <div class="row">
+          <ol class="col-12 breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#" onclick="judgementToProblems()">Problems</a>
+            </li>
+            <li class="breadcrumb-item active" id="breadcrumb_pos"></li>
+          </ol>
+        </div>
+      </div>
+      <div id="result_area"></div>
+      <!--第三部分-->
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-4 offset-1 col-sm-2">
+            <h5>Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="./index.html">Home</a></li>
+              <li><a href="#">Problems</a></li>
+              <li><a href="./about.html">About</a></li>
+              <li><a href="./contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-6 offset-1 col-sm-4">
+            <h5>Our Address</h5>
+            <address>
+              4800 Cao'an Road,<br />
+              Jiading District,<br />
+              Shanghai<br />
+              <i class="fa fa-phone fa-lg"></i>: +86 1234 5678<br />
+              <i class="fa fa-fax fa-lg"></i>: +86 8765 4321<br />
+              <i class="fa fa-envelope fa-lg"></i>:
+              <a href="mailto:1950000@tongji.edu.cn">1950000@tongji.edu.cn</a>
+            </address>
+          </div>
+          <div class="col-12 col-sm-4 align-self-center">
+            <div class="text-center">
+              <a
+                class="btn btn-social-icon btn-google"
+                href="http://google.com/+"
+                ><i class="fa fa-google-plus fa-lg"></i
+              ></a>
+              <a
+                class="btn btn-social-icon btn-facebook"
+                href="http://www.facebook.com/profile.php?id="
+                ><i class="fa fa-facebook fa-lg"></i
+              ></a>
+              <a
+                class="btn btn-social-icon btn-linkedin"
+                href="http://www.linkedin.com/in/"
+                ><i class="fa fa-linkedin fa-lg"></i
+              ></a>
+              <a
+                class="btn btn-social-icon btn-twitter"
+                href="http://twitter.com/"
+                ><i class="fa fa-twitter fa-lg"></i
+              ></a>
+              <a
+                class="btn btn-social-icon btn-google"
+                href="http://youtube.com/"
+                ><i class="fa fa-youtube fa-lg"></i
+              ></a>
+              <a class="btn btn-social-icon" href="mailto:"
+                ><i class="fa fa-envelope-o fa-lg"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <p>© Copyright 2020 Group 15</p>
+          </div>
+        </div>
+      </div>
+    </footer>
     <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
     <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
