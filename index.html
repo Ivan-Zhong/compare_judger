@@ -23,6 +23,7 @@
       href="node_modules/bootstrap-social/bootstrap-social.css"
     />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/github-markdown.css" />
     <title>Compare Judger</title>
   </head>
   <body>
@@ -92,22 +93,62 @@
         <div class="row row-content">
           <div class="col-12 col-sm-1"></div>
           <div class="col-12 col-sm-10">
-            <h2 class="text-center m-3">Published problems</h2>
+            <h2 class="text-center m-3">题目列表</h2>
             <div class="row m-3">
-              <form class="form-inline col-6">
-                <input
-                  class="form-control mr-sm-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-                <button
-                  class="btn btn-outline-success my-2 my-sm-0"
-                  type="submit"
-                >
-                  <i class="fa fa-search"></i>
-                </button>
-              </form>
+              <div class="col-6">
+                <form>
+                  <div class="form-row form-group">
+                    <input
+                      class="form-control mr-sm-2 col-8"
+                      type="search"
+                      placeholder="题目名称"
+                      aria-label="Search"
+                      id="searchBox_title"
+                    />
+                    <button
+                      class="btn btn-outline-success my-2 my-sm-0"
+                      type="button"
+                      onclick="searchProblem(document.getElementById('searchBox_title').value, 'title')"
+                    >
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                  <div class="form-row form-group">
+                    <input
+                      class="form-control mr-sm-2 col-8"
+                      type="search"
+                      placeholder="编号"
+                      aria-label="Search"
+                      id="searchBox_id"
+                    />
+                    <button
+                      class="btn btn-outline-success my-2 my-sm-0"
+                      type="button"
+                      onclick="searchProblem(document.getElementById('searchBox_id').value, 'id')"
+                    >
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                  <div class="form-row form-group">
+                    <input
+                      class="form-control mr-sm-2 col-8"
+                      type="search"
+                      placeholder="标签"
+                      aria-label="Search"
+                      id="searchBox_tag"
+                    />
+                    <button
+                      class="btn btn-outline-success my-2 my-sm-0"
+                      type="button"
+                      onclick="searchProblem(document.getElementById('searchBox_tag').value, 'tag')"
+                    >
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                  <small class="form-text text-muted">请任选其中一个搜索</small>
+                </form>
+              </div>
+
               <div class="col-6">
                 <a href="./create_new_problems.html">
                   <button type="button" class="float-right btn btn-success">
@@ -144,11 +185,93 @@
             <li class="breadcrumb-item active" id="breadcrumb_pos"></li>
           </ol>
         </div>
+        <div class="row row-content">
+          <div class="col-12 col-sm-8">
+            <article id="view-area" class="markdown-body">
+              <!-- github主题样式应用 -->
+            </article>
+          </div>
+          <div class="col-12 col-sm-4">
+            <div class="card">
+              <h4 class="card-header">Some problem</h4>
+              <div class="card-body">
+                <dl class="row">
+                  <dt class="col-4">编号</dt>
+                  <dd class="col-8">1</dd>
+                  <dt class="col-4">名称</dt>
+                  <dd class="col-8">Some problem</dd>
+                  <dt class="col-4">标签</dt>
+                  <dd class="col-8" id="judge_tags">
+                    <h4>
+                      <span class="badge badge-info">图</span>
+                      <span class="badge badge-info">树</span>
+                      <span class="badge badge-info">最小生成树</span>
+                      <span class="badge badge-info">Prim</span>
+                      <span class="badge badge-info">Kruskal</span>
+                      <span class="badge badge-info">树</span>
+                      <span class="badge badge-info">图</span>
+                      <span class="badge badge-info">树</span>
+                      <span class="badge badge-info">图</span>
+                      <span class="badge badge-info">树</span>
+                    </h4>
+                  </dd>
+                  <dt class="col-4">提供者</dt>
+                  <dd class="col-8">
+                    <h4>
+                      <!--这里的头像都应该是链接，能直接点到他们的页面-->
+                      <img
+                        src="./img/tongji.jpg"
+                        class="img-rounded img-fluid img-thumbnail"
+                        style="height: 40px"
+                      />
+                      <img
+                        src="./img/uthappizza.png"
+                        class="img-rounded img-fluid img-thumbnail"
+                        style="height: 40px"
+                      />
+                    </h4>
+                  </dd>
+                  <dt class="col-4">票数</dt>
+                  <dd class="col-8">16</dd>
+                  <!-- <dt class="col-4"></dt>
+                  <dd class="col-8"></dd> -->
+                </dl>
+              </div>
+              <div class="card-footer">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">拍</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">最小生成树</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+          <form>
+            
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success">开始对拍</button>
+          <button type="button" class="btn btn-primary">保存更改</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+      
+    </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="result_area"></div>
       <!--第三部分-->
     </div>
-
     <footer class="footer">
       <div class="container">
         <div class="row">
@@ -218,7 +341,7 @@
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

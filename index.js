@@ -1,4 +1,6 @@
-const problem_lists = [
+axios.defaults.baseURL = 'https://www.truemogician.com:1992';
+
+var problem_lists = [
 {
     id: 1,
     title: '最小生成树',
@@ -53,4 +55,47 @@ function judgementToProblems(){
     $('#problem_list').show();
     $("#judgement_area").hide();
 $("#result_area").hide();
+}
+
+async function searchProblem(value, cls){
+    // 应该先判断输入是否符合要求，需要添加
+    let response;
+    if(cls === 'title'){
+        response = await axios.get("/api/problem/search",{
+            params:{
+                title: value
+            }
+        });
+    }
+    else if(cls === 'id'){
+        response = await axios.get("/api/problem/search",{
+            params:{
+                id: parseInt(value)
+            }
+        })
+    }
+    else if(cls === 'tag'){
+        response = await axios.get('/api/problem/search', {
+            params:{
+                tags:parseInt(value)
+            }
+        })
+    }
+    problem_lists = response.data;
+}
+
+const md_test = `
+#hello world!
+## interesting
+`
+
+var problem_data;
+
+mdConverter(md_test);
+
+function mdConverter(md) {
+    var converter = new showdown.Converter();  //增加拓展table
+    converter.setOption('tables', true);  //启用表格选项。从showdown 1.2.0版开始，表支持已作为可选功能移入核心拓展，showdown.table.min.js扩展已被弃用
+    var view = converter.makeHtml(md);
+    document.getElementById("view-area").innerHTML = view;
 }
