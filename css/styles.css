@@ -69,3 +69,32 @@ body {
     padding: 15px;
   }
 }
+
+.fileInput {
+  display: none;
+}
+
+label[for="upload_target_file"] {
+  color: white;
+  background-color: #06f;
+  padding: 10px 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+label[for="upload_target_file"]:hover {
+  background-color: #28f;
+}
+
+#upload_target_file:disabled + label[for="upload_target_file"] {
+  background-color: #aaa;
+  cursor: default;
+}
+
+#upload_progress_target {
+  visibility: hidden;
+}
+
+#upload_progress_target.visible {
+  visibility: visible;
+}

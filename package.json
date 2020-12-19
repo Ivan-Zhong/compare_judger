@@ -2,7 +2,7 @@
   "name": "bat_judge",
   "version": "1.0.0",
   "description": "a website for bat debugging",
-  "main": "index.html",
+  "main": "index.html#judgement_area",
   "scripts": {
     "start": "npm run lite",
     "test": "echo \"Error: no test specified\" && exit 1",

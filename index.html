@@ -152,7 +152,7 @@
               <div class="col-6">
                 <a href="./create_new_problems.html">
                   <button type="button" class="float-right btn btn-success">
-                    <i class="fa fa-plus"></i> Create new problems
+                    <i class="fa fa-plus"></i> 创建题目
                   </button>
                 </a>
               </div>
@@ -196,13 +196,13 @@
               <h4 class="card-header">Some problem</h4>
               <div class="card-body">
                 <dl class="row">
-                  <dt class="col-4">编号</dt>
-                  <dd class="col-8">1</dd>
-                  <dt class="col-4">名称</dt>
-                  <dd class="col-8">Some problem</dd>
-                  <dt class="col-4">标签</dt>
-                  <dd class="col-8" id="judge_tags">
-                    <h4>
+                  <dt class="col-3">编号</dt>
+                  <dd class="col-9" id="judgeProblemId">1</dd>
+                  <dt class="col-3">名称</dt>
+                  <dd class="col-9" id="judgeProblemTitle">Some problem</dd>
+                  <dt class="col-3">标签</dt>
+                  <dd class="col-9" id="judgeProblemTags">
+                    <h5>
                       <span class="badge badge-info">图</span>
                       <span class="badge badge-info">树</span>
                       <span class="badge badge-info">最小生成树</span>
@@ -213,10 +213,10 @@
                       <span class="badge badge-info">树</span>
                       <span class="badge badge-info">图</span>
                       <span class="badge badge-info">树</span>
-                    </h4>
+                    </h5>
                   </dd>
-                  <dt class="col-4">提供者</dt>
-                  <dd class="col-8">
+                  <dt class="col-3">作者</dt>
+                  <dd class="col-9" id="judgeProblemAuthor">
                     <h4>
                       <!--这里的头像都应该是链接，能直接点到他们的页面-->
                       <img
@@ -224,21 +224,47 @@
                         class="img-rounded img-fluid img-thumbnail"
                         style="height: 40px"
                       />
+                    </h4>
+                  </dd>
+                  <dt class="col-3">贡献者</dt>
+                  <dd class="col-9" id="judgeProblemContributor">
+                    <h4>
+                      <!--这里的头像都应该是链接，能直接点到他们的页面-->
                       <img
-                        src="./img/uthappizza.png"
+                        src="./img/lyf.jpg"
                         class="img-rounded img-fluid img-thumbnail"
                         style="height: 40px"
                       />
+                      <img
+                        src="./img/lyq.jpg"
+                        class="img-rounded img-fluid img-thumbnail"
+                        style="height: 40px"
+                      />
+                      <img
+                      src="./img/zyy.jpg"
+                      class="img-rounded img-fluid img-thumbnail"
+                      style="height: 40px"
+                    />
                     </h4>
                   </dd>
-                  <dt class="col-4">票数</dt>
-                  <dd class="col-8">16</dd>
+                  <dt class="col-3">票数</dt>
+                  <dd class="col-9" id="judgeProblemVotes">16
+                  </dd>
                   <!-- <dt class="col-4"></dt>
                   <dd class="col-8"></dd> -->
                 </dl>
               </div>
               <div class="card-footer">
+                <div class="row">
+                <div class="col-5">
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">拍</button>
+              </div>
+              <div class="col-7 justify-content-center align-self-center">
+                <button class="btn btn-success" id="voteup"><i class="fa fa-thumbs-up fa-lg"></i> &nbsp; 顶</button>
+                <button class="btn btn-warning" id="votedown"><i class="fa fa-thumbs-down fa-lg"></i> &nbsp; 踩</button>
+              </div>
+            </div>
+                
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -249,16 +275,116 @@
         <div class="modal-header">
           <h4 class="modal-title">最小生成树</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          
         </div>
         <div class="modal-body">
-          <form>
+          
+            <!-- <div class="form-row">
+              <input type="file" accept=".cpp, .js, .ts, .c">
+            </div> -->
+            <form id="judgeForm" enctype="multipart/form-data" method="post">
+            <div class="form-row">
+              <div class="form-group col-7">
+                <h4>选择数据生成器</h4>
+                <select class="form-control" name="gen" id="genSelect">
+                  <option selected>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                </select>
+              </div>
+              <div class="form-group col-1"></div>
+              <div class="form-group col-4 align-self-center justify-content-center">
+                <label class="btn btn-primary" for="ownDatagen">
+                  <i class="fa fa-file-code-o fa-lg"></i>&nbsp;用自己的
+                </label>
+                <input class="fileInput" type="file" id="ownDatagen" accept=".cpp, .c" name="genFile"/>
+                <p id="ownDatagenName"></p>
+              </div>
+            </div>
+            <hr />
+            <div class="form-row">
+              <div class="form-group col-7">
+                <h4>选择标准程序</h4>
+                <select class="form-control" name="standardProgram" id="standardSelect">
+                  <option selected>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                </select>
+              </div>
+              <div class="form-group col-1"></div>
+              <div class="form-group col-4 align-self-center justify-content-center">
+                <label class="btn btn-primary" for="ownStandardProgram">
+                  <i class="fa fa-file-code-o fa-lg"></i>&nbsp;用自己的
+                </label>
+                <input class="fileInput" type="file" id="ownStandardProgram" accept=".cpp, .c" name="standardProgramFile"/>
+                <p id="ownStandardProgramName"></p>
+              </div>
+            </div>
+            <hr />
+            <div class="form-row">
+              <div class="form-group col-7">
+                <h4>上传待检查程序</h4>
+                </div>
+                <div class="form-group col-1"></div>
+                <div class="form-group col-4 align-self-center justify-content-center">
+                  <label class="btn btn-primary" for="targetProgram">
+                    <i class="fa fa-file-code-o fa-lg"></i>&nbsp;点此上传
+                  </label>
+                  <input class="fileInput" type="file" id="targetProgram" accept=".cpp, .c" name="targetProgramFile"/><!--required-->
+                  <p id="targetProgramName"></p>
+              </div>
+            </div>
+            <hr />
+
+              <div class="form-group row">
+                <label for="language" class="col-form-label col-sm-3">语言</label>
+                <div class="col-sm-6">
+                  <select class="form-control" id="language" name="language">
+                    <option selected id="1">C++</option>
+                    <option id="2">C</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="standard" class="col-form-label col-sm-3">标准</label>
+                <div class="col-sm-6">
+                  <select class="form-control" id="standard" name="standard">
+                    <!-- <option>C++ 98</option>
+                    <option>C++ 03</option>
+                    <option>C++ 11</option>
+                    <option>C++ 14</option>
+                    <option>C++ 17</option> -->
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="compiler" class="col-form-label col-sm-3" >编译器</label>
+                <div class="col-sm-6">
+                  <select class="form-control" id="compiler" name="compiler">
+                    <option selected>gcc</option>
+                    <option>MSVC</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="batTimes" class="col-form-label col-sm-3">对拍次数</label>
+                <div class="col-sm-6">
+                  <select class="form-control" id="batTimes" name="batTimes">
+                    <option selected>300</option>
+                    <option>500</option>
+                    <option>1000</option>
+                    <option>2000</option>
+                  </select>
+                </div>
+              </div>
+              <hr />
+<div class="form-row">
+  <button type="submit" class="btn btn-success" id="startBAT">开始对拍</button>
+</div>
+
             
-          </form>
+</form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success">开始对拍</button>
-          <button type="button" class="btn btn-primary">保存更改</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
         </div>
       </div>
