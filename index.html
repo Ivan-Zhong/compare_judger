@@ -22,6 +22,15 @@
       rel="stylesheet"
       href="node_modules/bootstrap-social/bootstrap-social.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css"
+    />
+    <link
+      rel="stylesheet"
+      href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css"
+    />
+    <link rel="stylesheet" href="node_modules/morris.js-0.5.1/morris.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" type="text/css" href="css/github-markdown.css" />
     <title>Compare Judger</title>
@@ -40,7 +49,7 @@
         <a class="navbar-brand mr-auto" href="#"
           ><i class="fa fa-thumbs-up fa-lg"></i
         ></a>
-        <div class="collapse navbar-collapse" id="Navbar">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <a class="nav-link" href="./index.html"
@@ -63,6 +72,29 @@
               >
             </li>
           </ul>
+          <div class="dropdown">
+            <button
+              href="#"
+              class="btn dropdown-toggle nav-link"
+              type="button"
+              data-toggle="dropdown"
+              data-bs-toggle="dropdown"
+              style="padding: 0px; margin: 0px 60px 0px 0px"
+              id="currentUserAvator"
+            >
+              <img
+                src="./img/lyq.jpg"
+                class="img-rounded img-fluid img-thumbnail"
+                style="height: 40px"
+              />
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="./myself.html">我的主页</a>
+              </li>
+              <li><a class="dropdown-item" href="#" id="logout">登出</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
@@ -89,7 +121,7 @@
     </header>
 
     <div class="container" id="main_container">
-      <div id="problem_list">
+      <div id="problemList">
         <div class="row row-content">
           <div class="col-12 col-sm-1"></div>
           <div class="col-12 col-sm-10">
@@ -103,12 +135,12 @@
                       type="search"
                       placeholder="题目名称"
                       aria-label="Search"
-                      id="searchBox_title"
+                      id="searchBoxTitle"
                     />
                     <button
                       class="btn btn-outline-success my-2 my-sm-0"
                       type="button"
-                      onclick="searchProblem(document.getElementById('searchBox_title').value, 'title')"
+                      onclick="searchProblem(document.getElementById('searchBoxTitle').value, 'title')"
                     >
                       <i class="fa fa-search"></i>
                     </button>
@@ -119,12 +151,12 @@
                       type="search"
                       placeholder="编号"
                       aria-label="Search"
-                      id="searchBox_id"
+                      id="searchBoxId"
                     />
                     <button
                       class="btn btn-outline-success my-2 my-sm-0"
                       type="button"
-                      onclick="searchProblem(document.getElementById('searchBox_id').value, 'id')"
+                      onclick="searchProblem(document.getElementById('searchBoxId').value, 'id')"
                     >
                       <i class="fa fa-search"></i>
                     </button>
@@ -135,12 +167,12 @@
                       type="search"
                       placeholder="标签"
                       aria-label="Search"
-                      id="searchBox_tag"
+                      id="searchBoxTag"
                     />
                     <button
                       class="btn btn-outline-success my-2 my-sm-0"
                       type="button"
-                      onclick="searchProblem(document.getElementById('searchBox_tag').value, 'tag')"
+                      onclick="searchProblem(document.getElementById('searchBoxTag').value, 'tag')"
                     >
                       <i class="fa fa-search"></i>
                     </button>
@@ -150,7 +182,7 @@
               </div>
 
               <div class="col-6">
-                <a href="./create_new_problems.html">
+                <a href="./Create_problem.html">
                   <button type="button" class="float-right btn btn-success">
                     <i class="fa fa-plus"></i> 创建题目
                   </button>
@@ -176,7 +208,7 @@
         <div class="col-12 col-sm-1"></div>
       </div>
 
-      <div id="judgement_area">
+      <div id="judgementArea">
         <div class="row">
           <ol class="col-12 breadcrumb">
             <li class="breadcrumb-item">
@@ -187,13 +219,13 @@
         </div>
         <div class="row row-content">
           <div class="col-12 col-sm-8">
-            <article id="view-area" class="markdown-body">
+            <article id="judge-view-area" class="markdown-body">
               <!-- github主题样式应用 -->
             </article>
           </div>
           <div class="col-12 col-sm-4">
             <div class="card">
-              <h4 class="card-header">Some problem</h4>
+              <h4 class="card-header">题目信息</h4>
               <div class="card-body">
                 <dl class="row">
                   <dt class="col-3">编号</dt>
@@ -217,185 +249,410 @@
                   </dd>
                   <dt class="col-3">作者</dt>
                   <dd class="col-9" id="judgeProblemAuthor">
-                    <h4>
-                      <!--这里的头像都应该是链接，能直接点到他们的页面-->
-                      <img
-                        src="./img/tongji.jpg"
-                        class="img-rounded img-fluid img-thumbnail"
-                        style="height: 40px"
-                      />
-                    </h4>
+                    <!--这里的头像都应该是链接，能直接点到他们的页面-->
+                    <img
+                      src="./img/tongji.jpg"
+                      class="img-rounded img-fluid img-thumbnail"
+                      style="height: 40px"
+                    />
                   </dd>
                   <dt class="col-3">贡献者</dt>
                   <dd class="col-9" id="judgeProblemContributor">
-                    <h4>
-                      <!--这里的头像都应该是链接，能直接点到他们的页面-->
-                      <img
-                        src="./img/lyf.jpg"
-                        class="img-rounded img-fluid img-thumbnail"
-                        style="height: 40px"
-                      />
-                      <img
-                        src="./img/lyq.jpg"
-                        class="img-rounded img-fluid img-thumbnail"
-                        style="height: 40px"
-                      />
-                      <img
+                    <!--这里的头像都应该是链接，能直接点到他们的页面-->
+                    <img
+                      src="./img/lyf.jpg"
+                      class="img-rounded img-fluid img-thumbnail"
+                      style="height: 40px"
+                    />
+                    <img
+                      src="./img/lyq.jpg"
+                      class="img-rounded img-fluid img-thumbnail"
+                      style="height: 40px"
+                    />
+                    <img
                       src="./img/zyy.jpg"
                       class="img-rounded img-fluid img-thumbnail"
                       style="height: 40px"
                     />
-                    </h4>
                   </dd>
                   <dt class="col-3">票数</dt>
-                  <dd class="col-9" id="judgeProblemVotes">16
-                  </dd>
+                  <dd class="col-9" id="judgeProblemVotes">16</dd>
                   <!-- <dt class="col-4"></dt>
                   <dd class="col-8"></dd> -->
                 </dl>
               </div>
               <div class="card-footer">
                 <div class="row">
-                <div class="col-5">
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">拍</button>
-              </div>
-              <div class="col-7 justify-content-center align-self-center">
-                <button class="btn btn-success" id="voteup"><i class="fa fa-thumbs-up fa-lg"></i> &nbsp; 顶</button>
-                <button class="btn btn-warning" id="votedown"><i class="fa fa-thumbs-down fa-lg"></i> &nbsp; 踩</button>
-              </div>
-            </div>
-                
+                  <div class="col-5">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-lg"
+                      data-toggle="modal"
+                      data-target="#myModal"
+                    >
+                      拍
+                    </button>
+                  </div>
+                  <div class="col-7 justify-content-center align-self-center">
+                    <button class="btn btn-success" id="voteup">
+                      <i class="fa fa-thumbs-up fa-lg"></i> &nbsp; 顶
+                    </button>
+                    <button class="btn btn-warning" id="votedown">
+                      <i class="fa fa-thumbs-down fa-lg"></i> &nbsp; 踩
+                    </button>
+                  </div>
+                </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">最小生成树</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          
-            <!-- <div class="form-row">
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="modal-title">最小生成树</h4>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                        >
+                          &times;
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <!-- <div class="form-row">
               <input type="file" accept=".cpp, .js, .ts, .c">
             </div> -->
-            <form id="judgeForm" enctype="multipart/form-data" method="post">
-            <div class="form-row">
-              <div class="form-group col-7">
-                <h4>选择数据生成器</h4>
-                <select class="form-control" name="gen" id="genSelect">
-                  <option selected>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                </select>
-              </div>
-              <div class="form-group col-1"></div>
-              <div class="form-group col-4 align-self-center justify-content-center">
-                <label class="btn btn-primary" for="ownDatagen">
-                  <i class="fa fa-file-code-o fa-lg"></i>&nbsp;用自己的
-                </label>
-                <input class="fileInput" type="file" id="ownDatagen" accept=".cpp, .c" name="genFile"/>
-                <p id="ownDatagenName"></p>
-              </div>
-            </div>
-            <hr />
-            <div class="form-row">
-              <div class="form-group col-7">
-                <h4>选择标准程序</h4>
-                <select class="form-control" name="standardProgram" id="standardSelect">
-                  <option selected>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                </select>
-              </div>
-              <div class="form-group col-1"></div>
-              <div class="form-group col-4 align-self-center justify-content-center">
-                <label class="btn btn-primary" for="ownStandardProgram">
-                  <i class="fa fa-file-code-o fa-lg"></i>&nbsp;用自己的
-                </label>
-                <input class="fileInput" type="file" id="ownStandardProgram" accept=".cpp, .c" name="standardProgramFile"/>
-                <p id="ownStandardProgramName"></p>
-              </div>
-            </div>
-            <hr />
-            <div class="form-row">
-              <div class="form-group col-7">
-                <h4>上传待检查程序</h4>
-                </div>
-                <div class="form-group col-1"></div>
-                <div class="form-group col-4 align-self-center justify-content-center">
-                  <label class="btn btn-primary" for="targetProgram">
-                    <i class="fa fa-file-code-o fa-lg"></i>&nbsp;点此上传
-                  </label>
-                  <input class="fileInput" type="file" id="targetProgram" accept=".cpp, .c" name="targetProgramFile"/><!--required-->
-                  <p id="targetProgramName"></p>
-              </div>
-            </div>
-            <hr />
+                        <form
+                          id="judgeForm"
+                          enctype="multipart/form-data"
+                          method="post"
+                        >
+                          <div class="form-row">
+                            <div class="form-group col-7">
+                              <h4>选择数据生成器</h4>
+                              <select
+                                class="form-control"
+                                name="datagenId"
+                                id="genSelect"
+                              >
+                                <!-- <option selected>
+                                  <img
+                                    src="./img/lyf.jpg"
+                                    class="img-rounded img-fluid img-thumbnail"
+                                    style="height: 40px"
+                                  />
+                                  37
+                                </option>
+                                <option>2</option>
+                                <option>3</option> -->
+                                <option data-img_src="./img/zyy.jpg">13</option>
+                                <option data-img_src="./img/lyq.jpg">14</option>
+                                <option data-img_src="./img/lyf.jpg">15</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-1"></div>
+                            <div
+                              class="form-group col-4 align-self-center justify-content-center"
+                            >
+                              <label class="btn btn-primary" for="ownDatagen">
+                                <i class="fa fa-file-code-o fa-lg"></i
+                                >&nbsp;用自己的
+                              </label>
+                              <input
+                                class="fileInput"
+                                type="file"
+                                id="ownDatagen"
+                                accept=".cpp, .c"
+                                name="genFile"
+                              />
+                              <p id="ownDatagenName"></p>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="form-row">
+                            <div class="form-group col-7">
+                              <h4>选择标准程序</h4>
+                              <select
+                                class="form-control"
+                                name="standardId"
+                                id="standardSelect"
+                              >
+                              <option data-img_src="./img/zyy.jpg">13</option>
+                              <option data-img_src="./img/lyq.jpg">14</option>
+                              <option data-img_src="./img/lyf.jpg">15</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-1"></div>
+                            <div
+                              class="form-group col-4 align-self-center justify-content-center"
+                            >
+                              <label
+                                class="btn btn-primary"
+                                for="ownStandardProgram"
+                              >
+                                <i class="fa fa-file-code-o fa-lg"></i
+                                >&nbsp;用自己的
+                              </label>
+                              <input
+                                class="fileInput"
+                                type="file"
+                                id="ownStandardProgram"
+                                accept=".cpp, .c"
+                                name="standardProgramFile"
+                              />
+                              <p id="ownStandardProgramName"></p>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="form-row">
+                            <div class="form-group col-7">
+                              <h4>上传待检查程序</h4>
+                            </div>
+                            <div class="form-group col-1"></div>
+                            <div
+                              class="form-group col-4 align-self-center justify-content-center"
+                            >
+                              <label
+                                class="btn btn-primary"
+                                for="targetProgram"
+                              >
+                                <i class="fa fa-file-code-o fa-lg"></i
+                                >&nbsp;点此上传
+                              </label>
+                              <input
+                                class="fileInput"
+                                type="file"
+                                id="targetProgram"
+                                accept=".cpp, .c"
+                                name="targetProgramFile"
+                              /><!--required-->
+                              <p id="targetProgramName"></p>
+                            </div>
+                          </div>
+                          <hr />
 
-              <div class="form-group row">
-                <label for="language" class="col-form-label col-sm-3">语言</label>
-                <div class="col-sm-6">
-                  <select class="form-control" id="language" name="language">
-                    <option selected id="1">C++</option>
-                    <option id="2">C</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="standard" class="col-form-label col-sm-3">标准</label>
-                <div class="col-sm-6">
-                  <select class="form-control" id="standard" name="standard">
-                    <!-- <option>C++ 98</option>
+                          <div class="form-group row">
+                            <label
+                              for="language"
+                              class="col-form-label col-sm-3"
+                              >语言</label
+                            >
+                            <div class="col-sm-6">
+                              <select
+                                class="form-control"
+                                id="language"
+                                name="language"
+                              >
+                                <option selected id="1">C++</option>
+                                <option id="2">C</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label
+                              for="standard"
+                              class="col-form-label col-sm-3"
+                              >标准</label
+                            >
+                            <div class="col-sm-6">
+                              <select
+                                class="form-control"
+                                id="standard"
+                                name="standard"
+                              >
+                                <!-- <option>C++ 98</option>
                     <option>C++ 03</option>
                     <option>C++ 11</option>
                     <option>C++ 14</option>
                     <option>C++ 17</option> -->
-                  </select>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label
+                              for="compiler"
+                              class="col-form-label col-sm-3"
+                              >编译器</label
+                            >
+                            <div class="col-sm-6">
+                              <select
+                                class="form-control"
+                                id="compiler"
+                                name="compiler"
+                              >
+                                <option selected>gcc</option>
+                                <option>MSVC</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label
+                              for="batTimes"
+                              class="col-form-label col-sm-3"
+                              >对拍次数</label
+                            >
+                            <div class="col-sm-6">
+                              <select
+                                class="form-control"
+                                id="batTimes"
+                                name="batTimes"
+                              >
+                                <option selected>300</option>
+                                <option>500</option>
+                                <option>1000</option>
+                                <option>2000</option>
+                              </select>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="form-row">
+                            <button
+                              type="submit"
+                              class="btn btn-success"
+                              id="startBAT"
+                            >
+                              开始对拍
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          关闭
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group row">
-                <label for="compiler" class="col-form-label col-sm-3" >编译器</label>
-                <div class="col-sm-6">
-                  <select class="form-control" id="compiler" name="compiler">
-                    <option selected>gcc</option>
-                    <option>MSVC</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="batTimes" class="col-form-label col-sm-3">对拍次数</label>
-                <div class="col-sm-6">
-                  <select class="form-control" id="batTimes" name="batTimes">
-                    <option selected>300</option>
-                    <option>500</option>
-                    <option>1000</option>
-                    <option>2000</option>
-                  </select>
-                </div>
-              </div>
-              <hr />
-<div class="form-row">
-  <button type="submit" class="btn btn-success" id="startBAT">开始对拍</button>
-</div>
-
-            
-</form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-        </div>
-      </div>
-      
-    </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div id="result_area"></div>
+
+      <div
+        class="modal fade"
+        id="pointErrorMessageModal"
+        tabindex="-1"
+        role="dialog"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button
+                type="button"
+                class="close"
+                onclick="hidePointErrorModal()"
+              >
+                &times;
+              </button>
+              <h4 class="modal-title" id="pointErrorMessageTitle">
+                数据错误！
+              </h4>
+            </div>
+            <div class="modal-body" id="pointErrorMessageBody">
+              <div id="pointErrorMessageBody1">
+                <div style="text-align: center">error</div>
+                <div
+                  style="overflow: scroll; height: 400px"
+                  id="pointErrorMessageBody12"
+                >
+                  error
+                </div>
+              </div>
+              <div id="pointErrorMessageBody2">
+                <div style="text-align: center">error</div>
+                <div
+                  style="overflow: scroll; height: 400px"
+                  id="pointErrorMessageBody22"
+                >
+                  error
+                </div>
+              </div>
+              <div id="pointErrorMessageBody3">
+                <div style="text-align: center">error</div>
+                <div
+                  style="overflow: scroll; height: 400px"
+                  id="pointErrorMessageBody32"
+                >
+                  error
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="hidePointErrorModal()"
+              >
+                关闭
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="resultArea">
+        <div class="row">
+          <ol class="col-12 breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#" onclick="judgementToProblems()">Problems</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="#" id="breadcrumbProblemResult" onclick="resultToJudgement()"></a>
+            </li>
+            <li class="breadcrumb-item active">result</li>
+          </ol>
+        </div>
+        <h2 style="text-align: center" class="m-3">Result</h2>
+        <div class="row" id="resultProgress">
+          <div class="row" style="height: 100px">
+            <div class="progress">
+              <div
+                class="progress-bar"
+                style="width: 0%"
+                role="progressbar"
+                aria-valuenow="40"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                id="judgeProgressBar"
+              >
+                0/0
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="resultNumber"style="padding:30px;">
+          <div class="col-md-6">
+            <div
+              class="panel panel-primary text-center no-boder bg-color-green"
+            >
+              <div class="panel-body">
+                <i class="fa fa-thumbs-up fa-5x"></i>
+                <h3 id="RightPointsPicture">0</h3>
+              </div>
+              <div class="panel-footer back-footer-green">Right Points</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-primary text-center no-boder bg-color-red">
+              <div class="panel-body">
+                <i class="fa fa-close fa-5x"></i>
+                <h3 id="WrongPointsPicture">0</h3>
+              </div>
+              <div class="panel-footer back-footer-red">Wrong Points</div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row row-content justify-content-center id="resultGraph">
+          <div id="graph_points"></div>
+        </div>
+      </div>
       <!--第三部分-->
     </div>
     <footer class="footer">
@@ -468,6 +725,10 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="node_modules/morris.js-0.5.1/morris.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

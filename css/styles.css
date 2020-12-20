@@ -47,10 +47,13 @@ body {
 #md-area {
   width: 100%;
   background: #f5f5f5;
-  border: 1px solid #111;
 }
 
 #view-area {
+  width: 100%;
+}
+
+#judge-view-area {
   width: 100%;
   border: 1px solid #111;
 }
@@ -97,4 +100,31 @@ label[for="upload_target_file"]:hover {
 
 #upload_progress_target.visible {
   visibility: visible;
+}
+
+.bg-color-green {
+  background-color: #fff;
+  color: #5cb85c;
+}
+.bg-color-blue {
+  background-color: #fff;
+  color: #4cb1cf;
+}
+.bg-color-red {
+  background-color: #fff;
+  color: #f0433d;
+}
+.bg-color-brown {
+  background-color: #fff;
+  color: #f0ad4e;
+}
+.back-footer-green {
+  background-color: #5cb85c;
+  color: #fff;
+  border-top: 0px solid #fff;
+}
+.back-footer-red {
+  background-color: #f0433d;
+  color: #fff;
+  border-top: 0px solid #fff;
 }

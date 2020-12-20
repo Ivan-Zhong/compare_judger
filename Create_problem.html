@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新建一个问题</title>
+    <!--markdown转换-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+
+
+    <!--semantic ui-->
+    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="js/semantic.min.js"></script>
+
+    <!--markdown转换-->
+    <script src="https://cdn.bootcdn.net/ajax/libs/marked/1.2.7/marked.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/github-markdown.css">
+
+    <!--自制样式-->
+    <link rel="stylesheet" href="css/styles_ccc.css" />
+    <script src="js/create_problem.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="node_modules/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet"
+          href="node_modules/bootstrap-social/bootstrap-social.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/github-markdown.css" />
+</head>
+<body>
+
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+        <div class="container">
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#Navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand mr-auto" href="#">
+                <i class="fa fa-thumbs-up fa-lg"></i>
+            </a>
+            <div class="collapse navbar-collapse" id="Navbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html"><span class="fa fa-home fa-lg"></span> Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#"><span class="fa fa-list fa-lg"></span> Problems</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./about.html"><span class="fa fa-info fa-lg"></span> About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./contact.html"><span class="fa fa-address-card fa-lg"></span> Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+        <div class="container">
+            <div class="ui segment">
+                <h2 class="ui header">新建问题</h2>
+                <div class="ui two column very relaxed grid">
+                    <div class="column">
+                        <form class="ui form">
+
+                            <!--问题标题-->
+                            <div class="field">
+                                <label _msthash="2235896" _msttexthash="7538024">标题</label>
+                                <textarea rows="1" cols="30" placeholder="请输入问题标题..." id="problem_name"></textarea>
+                            </div>
+
+                            <!--问题-->
+                            <div class="field">
+                                <label _msthash="2236611" _msttexthash="8587059">问题描述</label>
+                                <textarea rows="25" cols="50" placeholder="请使用markdown格式描述问题详情..." id="md-area" onkeyup=mdConverter()></textarea>
+                            </div>
+
+                            <!--问题tag-->
+                            <h4 class="ui header" id="tag_header">问题tag</h4>
+                            <div id="butsDiv"></div>
+
+                            <script>
+
+
+                                var tag;
+                                //let tag = ["图论1", "Prim", "dp"];
+                                let tag_chose = new Array();
+
+                                addButton(tag);
+                            </script>
+
+
+                            <!--提交与重置按钮-->
+                            <br>
+                            <hr>
+                            <button class="positive ui button" onclick="create_problem()" type='button'>
+                                <i class="fa fa-plus"></i> Create new problems
+                            </button>
+                            <input class="ui button" type="reset" name="button" id="button" value="重置" >
+                            <br>
+
+                        </form>
+                    </div>
+
+                    <div class="column">
+
+                        <!--效果预览-->
+                        <div class="column">
+                            <h2 class="ui header">效果预览</h2>
+                            <article id="view-area" class="markdown-body">
+                                <!-- github主题样式应用 -->
+                            </article>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ui vertical divider"></div>
+            </div>
+        </div>
+
+
+    <div class="container" id="main_container">
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 offset-1 col-sm-2">
+                        <h5>Links</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="#">Problems</a></li>
+                            <li><a href="./about.html">About</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 offset-1 col-sm-4">
+                        <h5>Our Address</h5>
+                        <address>
+                            4800 Cao'an Road,<br />
+                            Jiading District,<br />
+                            Shanghai<br />
+                            <i class="fa fa-phone fa-lg"></i>: +86 1234 5678<br />
+                            <i class="fa fa-fax fa-lg"></i>: +86 8765 4321<br />
+                            <i class="fa fa-envelope fa-lg"></i>:
+                            <a href="mailto:1950000@tongji.edu.cn">1950000@tongji.edu.cn</a>
+                        </address>
+                    </div>
+                    <div class="col-12 col-sm-4 align-self-center">
+                        <div class="text-center">
+                            <a class="btn btn-social-icon btn-google"
+                               href="http://google.com/+">
+                                <i class="fa fa-google-plus fa-lg"></i>
+                            </a>
+                            <a class="btn btn-social-icon btn-facebook"
+                               href="http://www.facebook.com/profile.php?id=">
+                                <i class="fa fa-facebook fa-lg"></i>
+                            </a>
+                            <a class="btn btn-social-icon btn-linkedin"
+                               href="http://www.linkedin.com/in/">
+                                <i class="fa fa-linkedin fa-lg"></i>
+                            </a>
+                            <a class="btn btn-social-icon btn-twitter"
+                               href="http://twitter.com/">
+                                <i class="fa fa-twitter fa-lg"></i>
+                            </a>
+                            <a class="btn btn-social-icon btn-google"
+                               href="http://youtube.com/">
+                                <i class="fa fa-youtube fa-lg"></i>
+                            </a>
+                            <a class="btn btn-social-icon" href="mailto:">
+                                <i class="fa fa-envelope-o fa-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <p>© Copyright 2020 Group 15</p>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+    </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+
+
+
+</body>
+</html>

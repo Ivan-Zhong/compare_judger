@@ -1,0 +1,44 @@
+﻿#editor {
+    display: flex;
+    min-height: 600px;
+    width: 100%;
+}
+
+#md-area {
+    width: 100%;
+    background: #f5f5f5;
+    /*border: 1px solid #111;*/
+}
+
+#view-area {
+    width: 100%;
+    /*border: 1px solid #111;*/
+}
+
+/*Github主题要求的样式引入*/
+.markdown-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 45px;
+}
+
+.segment-body {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 200px;
+    margin-left: 200px;
+}
+
+@media (max-width: 767px) {
+    .markdown-body {
+        padding: 15px;
+    }
+}
+
+.footer {
+    background-color: #d1c4e9;
+    margin: 0px auto;
+    padding: 20px 0px 20px 0px;
+}

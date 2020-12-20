@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+      integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
+      crossorigin="anonymous"
+    />
+    <script src="https://www.truemogician.com:1926/jquery.js"></script>
+    <script src="https://www.truemogician.com:1926/axios.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+      integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="./register.js"></script>
+    <title>Compare Judger</title>
+    <style type="text/css">
+      body {
+        background-color: #d1c4e9;
+      }
+
+      body > .grid {
+        height: 100%;
+      }
+
+      .image {
+        margin-top: -80px;
+      }
+
+      .column {
+        max-width: 450px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <h2 class="ui center aligned icon header">
+          <i class="user plus icon"></i> 注册
+        </h2>
+        <form class="ui large form">
+          <div class="ui segment">
+            <div class="field" style="height: 40px">
+              <div
+                style="width: 260px; float: left; height: 40px"
+                class="ui left icon input"
+              >
+                <i class="envelope outline icon"></i>
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="邮箱"
+                  correct="false"
+                  oninput="judge_email()"
+                />
+              </div>
+              <div
+                style="width: 120px; float: right; height: 40px"
+                class="ui fluid disabled button"
+                tabindex="0"
+                id="sendmail button"
+                onclick="send_mail_authentic()"
+              >
+                <div class="visible content" id="sendmailinfo">发送验证码</div>
+              </div>
+              <p id="emailinfo"></p>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="id badge outline icon"></i>
+                <input
+                  type="text"
+                  id="name"
+                  correct="false"
+                  placeholder="昵称（32字符以内，不支持中文）"
+                  oninput="judge_if_correct(id,/^[a-zA-Z0-9_-]{1,32}$/)"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input
+                  type="password"
+                  id="password_one"
+                  correct="false"
+                  placeholder="密码（32位以内）"
+                  oninput="judge_length(id)"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="sync alternate icon"></i>
+                <input
+                  type="password"
+                  id="password_two"
+                  correct="false"
+                  placeholder="请确认密码 "
+                  oninput="judge_same()"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui disabled left icon input" id="authentic">
+                <i class="chess board icon"></i>
+                <input type="text " id= "authentic_input" correct="false"
+                placeholder="验证码 "
+                oninput=judge_if_correct(id,/^[a-zA-Z0-9]{1,4}$/)>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="qq icon"></i>
+                <input
+                  type="text "
+                  id="qqid"
+                  correct="true"
+                  placeholder="QQ（选填）"
+                  oninput="judge_qq_phone(id,/[1-9][0-9]{4,11}$/,12)"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="phone square icon"></i>
+                <input
+                  type="text"
+                  id="phonenumber"
+                  correct="true"
+                  placeholder="手机（选填）"
+                  oninput="judge_qq_phone(id,/[1-9][0-9]{10}$/,11)"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui fluid disabled button" id="register button">
+                <div class="visible content" onclick="update_register_info()">
+                  成为我们的一员！
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <p id="createresponse"></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

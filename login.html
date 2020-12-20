@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+      integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+      integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://www.truemogician.com:1992/axios.js"></script>
+    <script type="text/javascript" src="./login.js"></script>
+    <title>Compare Judger</title>
+    <style type="text/css">
+      body {
+        background-color: #d1c4e9;
+      }
+
+      body > .grid {
+        height: 100%;
+      }
+
+      .image {
+        margin-top: -80px;
+      }
+
+      .column {
+        max-width: 450px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <h2 class="ui center aligned icon header">
+          <i class="sign-in icon"></i> 登录
+        </h2>
+        <form class="ui large form">
+          <div class="ui segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="邮箱"
+                  correct="false"
+                  oninput="check_input_account()"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input
+                  type="text"
+                  id="password"
+                  correct="false"
+                  placeholder="密码"
+                  oninput="check_input_password()"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div
+                class="ui fluid disabled button"
+                tabindex="0"
+                id="login button"
+                onClick="location.href='./index.html'"
+              >
+                <div class="visible content">登录</div>
+              </div>
+            </div>
+          </div>
+          <div class="ui segment">
+            <div class="filed">
+              <div
+                class="ui fluid animated fade button"
+                tabindex="0"
+                value="GO"
+                onClick="location.href='./register.html'"
+              >
+                <div class="visible content">注册</div>
+                <div class="hidden content">
+                  <i class="user circle icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
